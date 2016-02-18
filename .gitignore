@@ -10,6 +10,8 @@
 /etc/default/*
 !/etc/apache2
 /etc/apache2/*
+!/etc/init.d
+/etc/init.d/*
 !/var
 /var/*
 !/var/lib
@@ -32,6 +34,7 @@
 !/etc/hosts
 !/etc/default/*
 !/etc/apache2/*
+!/etc/init.d/buildbot
 !/var/lib/buildbot/masters/*
 !/var/lib/buildbot/slaves/*
 !/home/build/openxt/*
