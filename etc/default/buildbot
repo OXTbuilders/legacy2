@@ -1,0 +1,16 @@
+# buildbots to manage
+# add a new set of variables for each buildbot to start
+
+BB_NUMBER[0]=0			# index for the other values; negative disables the bot
+BB_NAME[0]="master"		# short name printed on startup / stop
+BB_USER[0]="build"		# user to run as
+BB_BASEDIR[0]="/home/buildbot/master"		# basedir argument to buildbot (absolute path)
+BB_OPTIONS[0]=""		# buildbot options
+BB_PREFIXCMD[0]=""		# prefix command, i.e. nice, linux32, dchroot
+
+BB_NUMBER[1]=1                  # index for the other values; negative disables the bot
+BB_NAME[1]="legacy2"              # short name printed on startup / stop
+BB_USER[1]="build"           # user to run as
+BB_BASEDIR[1]="/home/buildbot/legacy2"                # basedir argument to buildbot (absolute path)
+BB_OPTIONS[1]=""                # buildbot options
+BB_PREFIXCMD[1]=""              # prefix command, i.e. nice, linux32, dchroot

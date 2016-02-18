@@ -12,22 +12,28 @@
 /etc/apache2/*
 !/etc/init.d
 /etc/init.d/*
-!/var
-/var/*
-!/var/lib
-/var/lib/*
-!/var/lib/buildbot
-/var/lib/buildbot/*
-!/var/lib/buildbot/masters
-/var/lib/buildbot/masters/*
-!/var/lib/buildbot/slaves
-/var/lib/buildbot/slaves/*
+!/usr
+/usr/*
+!/usr/local
+/usr/local/*
+!/usr/local/lib
+/usr/local/lib/*
+!/usr/local/lib/python2.6
+/usr/local/lib/python2.6/*
+!/usr/local/lib/python2.6/dist-packages
+/usr/local/lib/python2.6/dist-packages/*
+!/usr/local/lib/python2.6/dist-packages/buildbot
+/usr/local/lib/python2.6/dist-packages/buildbot/*
 !/home
 /home/*
-!/home/build
-/home/build/*
-!/home/build/openxt
-/home/build/openxt/*
+!/home/buildbot
+/home/buildbot/*
+!/home/buildbot/legacy2
+/home/buildbot/legacy2/*
+!/home/buildbot/legacy2/openxt-legacy2
+/home/buildbot/legacy2/openxt-legacy2/*
+!/home/buildbot/legacy2/openxt-legacy2/build
+/home/buildbot/legacy2/openxt-legacy2/build/*
 
 # Un-ignore the files/directories we want
 !/.gitignore
@@ -35,15 +41,18 @@
 !/etc/default/*
 !/etc/apache2/*
 !/etc/init.d/buildbot
-!/var/lib/buildbot/masters/*
-!/var/lib/buildbot/slaves/*
-!/home/build/openxt/*
+!/usr/local/lib/python2.6/dist-packages/buildbot/*
+!/home/buildbot/*
+!/home/buildbot/legacy2/openxt-legacy2/build/*
 
 # Re-ignore the files/directories we don't want
 *~
 *.log
 *.pid
 *sqlite*
-/var/lib/buildbot/masters/buildmaster/.htpasswd
-/var/lib/buildbot/masters/buildmaster/gitpoller-workdir/
-/var/lib/buildbot/masters/buildmaster/openxt/
+/usr/local/lib/python2.6/dist-packages/buildbot/test
+/home/buildbot/master/.htpasswd
+/home/buildbot/master/openxt-legacy2/
+/home/buildbot/legacy2/openxt-legacy2/build/build/
+/home/buildbot/legacy2/openxt-legacy2/build/certs/
+/home/buildbot/legacy2/openxt-legacy2/build/git/
