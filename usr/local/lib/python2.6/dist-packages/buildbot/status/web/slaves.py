@@ -113,11 +113,11 @@ class OneBuildSlaveResource(HtmlResource, BuildLineMixin):
                 if cb.getSlavename() == self.slavename:
                     current_builds.append(self.get_line_values(request, cb))
 
-        try:
-            max_builds = int(request.args.get('numbuilds')[0])
-        except ValueError:
-            max_builds = 10
-
+        #try:
+        #    max_builds = int(request.args.get('maxbuilds')[0])
+        #except ValueError:
+        #    max_builds = 10
+        max_builds = 10
         recent_builds = []
         n = 0
         for rb in s.generateFinishedBuilds(builders=[b.getName() for b in my_builders]):
