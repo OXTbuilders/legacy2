@@ -12,7 +12,7 @@
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 DESC="BuildBot"
 
-USER=buildbot
+USER=build
 
 BB_DAEMON=/usr/local/bin/buildbot
 BS_DAEMON=/usr/local/bin/buildslave
@@ -58,10 +58,6 @@ start_buildbot() {
     PREFIXCMD="$4"
     OPTIONS="$5"
 
-    #START="--start --quiet --exec ${DAEMON} --name ${NAME} --pidfile ${BASEDIR}/twistd.pid"
-    #[ -n "${USER}" ] && START="${START} --chuid ${USER}"
-    #START="${START} -- start ${BASEDIR} ${OPTIONS}"
-    #${PREFIXCMD} start-stop-daemon ${START} >/dev/null 2>&1
 	if [[ $NAME == "master" ]]; 
 	then
 	    ${PREFIXCMD} su -s /bin/sh -c "${BB_DAEMON} start -q ${BASEDIR} ${OPTIONS}" - ${USER}
@@ -77,7 +73,8 @@ stop_buildbot() {
     BASEDIR="$3"
     PREFIXCMD="$4"
 
-    ${PREFIXCMD} su -s /bin/sh -c "${DAEMON} stop ${BASEDIR}" - ${USER}
+    ${PREFIXCMD} su -s /bin/sh -c "${BB_DAEMON} stop ${BASEDIR}" - ${USER}
+    ${PREFIXCMD} su -s /bin/sh -c "${BS_DAEMON} stop ${BASEDIR}" - ${USER}
     return $?
 }
 
@@ -88,7 +85,8 @@ reload_buildbot() {
     PREFIXCMD="$4"
 
     if test -f ${BASEDIR}/master.cfg; then
-	${PREFIXCMD} su -s /bin/sh -c "${DAEMON} sighup ${BASEDIR}" - ${USER}
+	${PREFIXCMD} su -s /bin/sh -c "${BB_DAEMON} sighup ${BASEDIR}" - ${USER}
+	${PREFIXCMD} su -s /bin/sh -c "${BS_DAEMON} sighup ${BASEDIR}" - ${USER}
     else
 	echo -n " not sighup-ing slave"
     fi
