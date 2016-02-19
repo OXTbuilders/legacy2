@@ -22,7 +22,8 @@ do_overrides () {
 	    git branch tmp
 	    git symbolic-ref HEAD refs/heads/tmp
 	    # Move $BRANCH to a backup location (avoid removing it, since some branches can't be removed)
-	    git branch -m $BRANCH original$BRANCH
+	    #   Do not fail if the branch doesn't exist, it can happen
+	    git branch -m $BRANCH original$BRANCH || true
 	    # Create a branch named $BRANCH out of the $branch requested by the override
 	    git branch $BRANCH $branch
 	    # Make $BRANCH the head of the repository
@@ -82,7 +83,7 @@ SYNC_CACHE_OE=158.69.227.117:/home/builds/oe
 BUILD_RSYNC_DESTINATION=158.69.227.117:/home/builds/builds
 NETBOOT_HTTP_URL=http://158.69.227.117/builds
 EOF
-#./do_build.sh -i $BUILDID -s setupoe,sync_cache
+./do_build.sh -i $BUILDID -s setupoe #,sync_cache
 
 # Handle layers
 if [[ $LAYERS != 'None' ]]; then
