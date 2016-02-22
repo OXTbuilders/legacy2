@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
 BUILDID=$1
-BRANCH=$2	# Unused for now
+BRANCH=$2
 LAYERS=$3
 OVERRIDES=$4
 ISSUE=$5
