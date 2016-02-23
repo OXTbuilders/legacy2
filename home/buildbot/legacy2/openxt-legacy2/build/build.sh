@@ -5,6 +5,7 @@ BRANCH=$2
 LAYERS=$3
 OVERRIDES=$4
 ISSUE=$5
+DISTRO=$6
 
 do_overrides () {
     for trip in $OVERRIDES; do
@@ -83,6 +84,12 @@ SYNC_CACHE_OE=builds@158.69.227.117:/home/builds/oe
 BUILD_RSYNC_DESTINATION=builds@158.69.227.117:/home/builds/builds
 NETBOOT_HTTP_URL=http://158.69.227.117/builds
 EOF
+
+# Handle distro
+if [[ $DISTRO != 'None' ]]; then
+    sed -i "s/^DISTRO *=.*/DISTRO = \"${DISTRO}\"/" build/conf/local.conf-dist
+fi
+
 ./do_build.sh -i $BUILDID -s setupoe #,sync_cache
 
 # Handle layers
