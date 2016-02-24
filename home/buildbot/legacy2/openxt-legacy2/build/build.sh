@@ -69,7 +69,7 @@ EOF
 
 cat <<EOF >> .config
 BRANCH=$BRANCH
-NAME_SITE="oxt"
+NAME_SITE="custom"
 OPENXT_MIRROR="http://158.69.227.117/mirror"
 OE_TARBALL_MIRROR="http://158.69.227.117/mirror"
 OPENXT_GIT_MIRROR="/home/buildbot/legacy2/openxt-legacy2/build/git"
