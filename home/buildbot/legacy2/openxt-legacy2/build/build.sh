@@ -80,7 +80,7 @@ REPO_DEV_SIGNING_CERT="/home/buildbot/legacy2/openxt-legacy2/build/certs/dev-cac
 REPO_DEV_SIGNING_KEY="/home/buildbot/legacy2/openxt-legacy2/build/certs/dev-cakey.pem"
 WIN_BUILD_OUTPUT="$WINTOOLS"
 XC_TOOLS_BUILD=$WINTOOLS_ID
-SYNC_CACHE_OE=builds@158.69.227.117:/home/builds/oe
+SYNC_CACHE_OE=builds@158.69.227.117:/home/builds/oe/legacy
 BUILD_RSYNC_DESTINATION=builds@158.69.227.117:/home/builds/builds
 NETBOOT_HTTP_URL=http://158.69.227.117/builds
 EOF
@@ -90,7 +90,7 @@ if [[ $DISTRO != 'None' ]]; then
     sed -i "s/^DISTRO *=.*/DISTRO = \"${DISTRO}\"/" build/conf/local.conf-dist
 fi
 
-./do_build.sh -i $BUILDID -s setupoe #,sync_cache
+./do_build.sh -i $BUILDID -s setupoe,sync_cache
 
 # Handle layers
 if [[ $LAYERS != 'None' ]]; then
