@@ -90,8 +90,7 @@ if [[ $DISTRO != 'None' ]]; then
     sed -i "s/^DISTRO *=.*/DISTRO = \"${DISTRO}\"/" build/conf/local.conf-dist
 fi
 
-# sync_cache breaks the build...
-./do_build.sh -i $BUILDID -s setupoe #,sync_cache
+./do_build.sh -i $BUILDID -s setupoe,sync_cache
 
 # Handle layers
 if [[ $LAYERS != 'None' ]]; then
