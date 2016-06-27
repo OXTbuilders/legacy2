@@ -12,6 +12,8 @@
 /etc/apache2/*
 !/etc/init.d
 /etc/init.d/*
+!/etc/apt
+/etc/apt/*
 !/usr
 /usr/*
 !/usr/local
@@ -41,6 +43,7 @@
 !/etc/default/*
 !/etc/apache2/*
 !/etc/init.d/buildbot
+!/etc/apt/sources.list
 !/usr/local/lib/python2.6/dist-packages/buildbot/*
 !/home/buildbot/*
 !/home/buildbot/legacy2/openxt-legacy2/build/*
