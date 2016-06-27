@@ -7,7 +7,7 @@ umask 0022
 
 cd build/openxt
 
-cp git_heads build-output/custom-dev-${BUILDID}-${BRANCH}/git_head
+cp git_heads build-output/*-dev-${BUILDID}-${BRANCH}/git_head
 ./do_build.sh -i $BUILDID -s xctools,ship,extra_pkgs,copy,packages_tree
 ret=$?
 if [ $ret -ne 0 ]; then
@@ -15,6 +15,8 @@ if [ $ret -ne 0 ]; then
 	exit $ret
 fi
 echo The build is done and copied to the main server.
+
+# Not running sync_cache_back
 
 cd ../..
 

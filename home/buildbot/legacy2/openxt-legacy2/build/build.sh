@@ -16,25 +16,38 @@ do_overrides () {
         rm -rf git/$name.git
         git clone --mirror git://$git/$name git/$name.git
         # Copyright (c) Jed
-	# The following code will name the override $BRANCH, to match what we're building
-	if [[ "$branch" != "${BRANCH}" ]]; then
-	    pushd git/$name.git
-	    # Avoid being on a releavant branch by moving the HEAD to a tmp branch
-	    git branch tmp
-	    git symbolic-ref HEAD refs/heads/tmp
-	    # Move $BRANCH to a backup location (avoid removing it, since some branches can't be removed)
-	    #   Do not fail if the branch doesn't exist, it can happen
-	    git branch -m $BRANCH original$BRANCH || true
-	    # Create a branch named $BRANCH out of the $branch requested by the override
-	    git branch $BRANCH $branch
-	    # Make $BRANCH the head of the repository
-	    git symbolic-ref HEAD refs/heads/$BRANCH
-	    popd
-	    fi
+        # The following code will name the override $BRANCH, to match what we're building
+        if [[ "$branch" != "${BRANCH}" ]]; then
+            pushd git/$name.git
+            # Avoid being on a releavant branch by moving the HEAD to a tmp branch
+            git branch tmp
+            git symbolic-ref HEAD refs/heads/tmp
+            # Move $BRANCH to a backup location (avoid removing it, since some branches can't be removed)
+            #   Do not fail if the branch doesn't exist, it can happen
+            git branch -m $BRANCH original$BRANCH || true
+            # Create a branch named $BRANCH out of the $branch requested by the override
+            git branch $BRANCH $branch
+            # Make $BRANCH the head of the repository
+            git symbolic-ref HEAD refs/heads/$BRANCH
+            popd
+            fi
     done
 }
 
 umask 0022
+
+if [[ "$LAYERS"    = "None" ]] && \
+   [[ "$OVERRIDES" = "None" ]] && \
+   [[ "$ISSUE"     = "None" ]] && \
+   [[ "$DISTRO"    = "None" ]]; then
+    CUSTOM=0
+    NAME_SITE="oxt"
+    echo "No override found, starting a regular build."
+else
+    CUSTOM=1
+    NAME_SITE="custom"
+    echo "Override(s) found, starting a custom build."
+fi
 
 # Handle overrides
 #   Note: It is against policy to set both $ISSUE and $OVERRIDES in the buildbot ui
@@ -62,14 +75,9 @@ WINTOOLS_ID="`grep -o '[0-9]*' wintools/BUILD_ID`"
 mv /tmp/git_heads_$BUILDID git_heads
 cp example-config .config
 
-# This builder is meant to be fast, let's build only the principal steps
-cat <<EOF >> .config
-STEPS="initramfs,stubinitramfs,dom0,uivm,ndvm,installer,installer2"
-EOF
-
 cat <<EOF >> .config
 BRANCH=$BRANCH
-NAME_SITE="custom"
+NAME_SITE="${NAME_SITE}"
 OPENXT_MIRROR="http://158.69.227.117/mirror"
 OE_TARBALL_MIRROR="http://158.69.227.117/mirror"
 OPENXT_GIT_MIRROR="/home/buildbot/legacy2/openxt-legacy2/build/git"
@@ -90,12 +98,13 @@ if [[ "$DISTRO" != 'None' ]]; then
     sed -i "s/^DISTRO *=.*/DISTRO = \"${DISTRO}\"/" build/conf/local.conf-dist
 fi
 
-./do_build.sh -i $BUILDID -s setupoe,sync_cache
-
 # Handle layers
 if [[ "$LAYERS" != 'None' ]]; then
+    ./do_build.sh -i $BUILDID -s setupoe
     ../../engage_layers.sh $LAYERS
 fi
+
+# Not running sync_cache
 
 ./do_build.sh -i $BUILDID | tee build.log
 ret=${PIPESTATUS[0]}
