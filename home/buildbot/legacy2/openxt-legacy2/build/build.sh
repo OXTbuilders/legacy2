@@ -30,7 +30,7 @@ do_overrides () {
             # Make $BRANCH the head of the repository
             git symbolic-ref HEAD refs/heads/$BRANCH
             popd
-            fi
+        fi
     done
 }
 
