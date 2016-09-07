@@ -79,7 +79,7 @@ cat <<EOF >> .config
 BRANCH=$BRANCH
 NAME_SITE="${NAME_SITE}"
 OPENXT_MIRROR="http://158.69.227.117/mirror"
-OE_TARBALL_MIRROR="http://158.69.227.117/mirror"
+OE_TARBALL_MIRROR="http://158.69.227.117/mirror/"
 OPENXT_GIT_MIRROR="/home/buildbot/legacy2/openxt-legacy2/build/git"
 OPENXT_GIT_PROTOCOL="file"
 REPO_PROD_CACERT="/home/buildbot/legacy2/openxt-legacy2/build/certs/prod-cacert.pem"
